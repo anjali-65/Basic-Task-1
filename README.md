@@ -1,171 +1,103 @@
-# Fake News Detection
 
-Fake News Detection in Python
 
-In this project, we have used various natural language processing techniques and machine learning algorithms to classify fake news articles using sci-kit libraries from python. 
 
-## Getting Started
+<h2>Objective :</h2>
+<p>To build a gender and age detector that can approximately guess the gender and age of the person (face) in a picture or through webcam.</p>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+<h2>About the Project :</h2>
+<p>In this Python Project, I had used Deep Learning to accurately identify the gender and age of a person from a single image of a face. The predicted gender may be one of ‘Male’ and ‘Female’, and the predicted age may be one of the following ranges- (0 – 2), (4 – 6), (8 – 12), (15 – 20), (25 – 32), (38 – 43), (48 – 53), (60 – 100) (8 nodes in the final softmax layer). It is very difficult to accurately guess an exact age from a single image because of factors like makeup, lighting, obstructions, and facial expressions. And so, I made this a classification problem instead of making it one of regression.</p>
 
-### Prerequisites
+<h2>Dataset :</h2>
+<p>For this python project, I had used the Adience dataset; the dataset is available in the public domain and you can find it <a href="https://www.kaggle.com/ttungl/adience-benchmark-gender-and-age-classification">here</a>. This dataset serves as a benchmark for face photos and is inclusive of various real-world imaging conditions like noise, lighting, pose, and appearance. The images have been collected from Flickr albums and distributed under the Creative Commons (CC) license. It has a total of 26,580 photos of 2,284 subjects in eight age ranges (as mentioned above) and is about 1GB in size. The models I used had been trained on this dataset.</p>
 
-What things you need to install the software and how to install them:
+<h2>Additional Python Libraries Required :</h2>
+<ul>
+  <li>OpenCV</li>
+  
+       pip install opencv-python
+</ul>
+<ul>
+ <li>argparse</li>
+  
+       pip install argparse
+</ul>
 
-1. Python 3.6 
-   - This setup requires that your machine has python 3.6 installed on it. you can refer to this url https://www.python.org/downloads/ to download python. Once you have python downloaded and installed, you will need to setup PATH variables (if you want to run python program directly, detail instructions are below in *how to run software section*). To do that check this: https://www.pythoncentral.io/add-python-to-path-python-is-not-recognized-as-an-internal-or-external-command/.  
-   - Setting up PATH variable is optional as you can also run program without it and more instruction are given below on this topic. 
-2. Second and easier option is to download anaconda and use its anaconda prompt to run the commands. To install anaconda check this url https://www.anaconda.com/download/
-3. You will also need to download and install below 3 packages after you install either python or anaconda from the steps above
-   - Sklearn (scikit-learn)
-   - numpy
-   - scipy
-   
-  - if you have chosen to install python 3.6 then run below commands in command prompt/terminal to install these packages
-   ```
-   pip install -U scikit-learn
-   pip install numpy
-   pip install scipy
-   ```
-   - if you have chosen to install anaconda then run below commands in anaconda prompt to install these packages
-   ```
-   conda install -c scikit-learn
-   conda install -c anaconda numpy
-   conda install -c anaconda scipy
-   ```   
-
-#### Dataset used
-The data source used for this project is LIAR dataset which contains 3 files with .tsv format for test, train and validation. Below is some description about the data files used for this project.
-	
-LIAR: A BENCHMARK DATASET FOR FAKE NEWS DETECTION
-
-William Yang Wang, "Liar, Liar Pants on Fire": A New Benchmark Dataset for Fake News Detection, to appear in Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (ACL 2017), short paper, Vancouver, BC, Canada, July 30-August 4, ACL.
-
-the original dataset contained 13 variables/columns for train, test and validation sets as follows:
-
-* Column 1: the ID of the statement ([ID].json).
-* Column 2: the label. (Label class contains: True, Mostly-true, Half-true, Barely-true, FALSE, Pants-fire)
-* Column 3: the statement.
-* Column 4: the subject(s).
-* Column 5: the speaker.
-* Column 6: the speaker's job title.
-* Column 7: the state info.
-* Column 8: the party affiliation.
-* Column 9-13: the total credit history count, including the current statement.
-* 9: barely true counts.
-* 10: false counts.
-* 11: half true counts.
-* 12: mostly true counts.
-* 13: pants on fire counts.
-* Column 14: the context (venue / location of the speech or statement).
-
-To make things simple we have chosen only 2 variables from this original dataset for this classification. The other variables can be added later to add some more complexity and enhance the features.
-
-Below are the columns used to create 3 datasets that have been in used in this project
-* Column 1: Statement (News headline or text).
-* Column 2: Label (Label class contains: True, False)
+<h2>The contents of this Project :</h2>
+<ul>
+  <li>opencv_face_detector.pbtxt</li>
+  <li>opencv_face_detector_uint8.pb</li>
+  <li>age_deploy.prototxt</li>
+  <li>age_net.caffemodel</li>
+  <li>gender_deploy.prototxt</li>
+  <li>gender_net.caffemodel</li>
+  <li>a few pictures to try the project on</li>
+  <li>detect.py</li>
+ </ul>
+ <p>For face detection, we have a .pb file- this is a protobuf file (protocol buffer); it holds the graph definition and the trained weights of the model. We can use this to run the trained model. And while a .pb file holds the protobuf in binary format, one with the .pbtxt extension holds it in text format. These are TensorFlow files. For age and gender, the .prototxt files describe the network configuration and the .caffemodel file defines the internal states of the parameters of the layers.</p>
  
-You will see that newly created dataset has only 2 classes as compared to 6 from original classes. Below is method used for reducing the number of classes.
+ <h2>Usage :</h2>
+ <ul>
+  <li>Download my Repository</li>
+  <li>Open your Command Prompt or Terminal and change directory to the folder where all the files are present.</li>
+  <li><b>Detecting Gender and Age of face in Image</b> Use Command :</li>
+  
+      python detect.py --image <image_name>
+</ul>
+  <p><b>Note: </b>The Image should be present in same folder where all the files are present</p> 
+<ul>
+  <li><b>Detecting Gender and Age of face through webcam</b> Use Command :</li>
+  
+      python detect.py
+</ul>
+<ul>
+  <li>Press <b>Ctrl + C</b> to stop the program execution.</li>
+</ul>
 
-* Original 	--	New
-* True	   	--	True
-* Mostly-true	-- 	True
-* Half-true	-- 	True
-* Barely-true	-- 	False
-* False		-- 	False
-* Pants-fire	-- 	False
+# Working:
+[![Watch the video](https://img.youtube.com/vi/ReeccRD21EU/0.jpg)](https://youtu.be/ReeccRD21EU)
 
-The dataset used for this project were in csv format named train.csv, test.csv and valid.csv and can be found in repo. The original datasets are in "liar" folder in tsv format.
+<h2>Examples :</h2>
+<p><b>NOTE:- I downloaded the images from Google,if you have any query or problem i can remove them, i just used it for Educational purpose.</b></p>
 
+    >python detect.py --image girl1.jpg
+    Gender: Female
+    Age: 25-32 years
+    
+<img src="Example/Detecting age and gender girl1.png">
 
-### File descriptions
+    >python detect.py --image girl2.jpg
+    Gender: Female
+    Age: 8-12 years
+    
+<img src="Example/Detecting age and gender girl2.png">
 
-#### DataPrep.py
-This file contains all the pre processing functions needed to process all input documents and texts. First we read the train, test and validation data files then performed some pre processing like tokenizing, stemming etc. There are some exploratory data analysis is performed like response variable distribution and data quality checks like null or missing values etc.
+    >python detect.py --image kid1.jpg
+    Gender: Male
+    Age: 4-6 years    
+    
+<img src="Example/Detecting age and gender kid1.png">
 
-#### FeatureSelection.py
-In this file we have performed feature extraction and selection methods from sci-kit learn python libraries. For feature selection, we have used methods like simple bag-of-words and n-grams and then term frequency like tf-tdf weighting. we have also used word2vec and POS tagging to extract the features, though POS tagging and word2vec has not been used at this point in the project.
+    >python detect.py --image kid2.jpg
+    Gender: Female
+    Age: 4-6 years  
+    
+<img src="Example/Detecting age and gender kid2.png">
 
-#### classifier.py
-Here we have build all the classifiers for predicting the fake news detection. The extracted features are fed into different classifiers. We have used Naive-bayes, Logistic Regression, Linear SVM, Stochastic gradient descent and Random forest classifiers from sklearn. Each of the extracted features were used in all of the classifiers. Once fitting the model, we compared the f1 score and checked the confusion matrix. After fitting all the classifiers, 2 best performing models were selected as candidate models for fake news classification. We have performed parameter tuning by implementing GridSearchCV methods on these candidate models and chosen best performing parameters for these classifier. Finally selected model was used for fake news detection with the probability of truth. In Addition to this, We have also extracted the top 50 features from our term-frequency tfidf vectorizer to see what words are most and important in each of the classes. We have also used Precision-Recall and learning curves to see how training and test set performs when we increase the amount of data in our classifiers.
+    >python detect.py --image man1.jpg
+    Gender: Male
+    Age: 38-43 years
+    
+<img src="Example/Detecting age and gender man1.png">
 
-#### prediction.py
-Our finally selected and best performing classifier was ```Logistic Regression``` which was then saved on disk with name ```final_model.sav```. Once you close this repository, this model will be copied to user's machine and will be used by prediction.py file to classify the fake news. It takes an news article as input from user then model is used for final classification output that is shown to user along with probability of truth.
+    >python detect.py --image man2.jpg
+    Gender: Male
+    Age: 25-32 years
+    
+<img src="Example/Detecting age and gender man2.png">
 
-Below is the Process Flow of the project:
-
-<p align="center">
-  <img width="600" height="750" src="https://github.com/nishitpatel01/Fake_News_Detection/blob/master/images/ProcessFlow.PNG">
-</p>
-
-### Performance
-Below is the learning curves for our candidate models. 
-
-**Logistic Regression Classifier**
-
-<p align="center">
-  <img width="550" height="450" src="https://github.com/nishitpatel01/Fake_News_Detection/blob/master/images/LR_LCurve.PNG">
-</p>
-
-**Random Forest Classifier**
-
-<p align="center">
-  <img width="550" height="450" src="https://github.com/nishitpatel01/Fake_News_Detection/blob/master/images/RF_LCurve.png">
-</p>
-
-### Next steps
-As we can see that our best performing models had an f1 score in the range of 70's. This is due to less number of data that we have used for training purposes and simplicity of our models. For the future implementations, we could introduce some more feature selection methods such as POS tagging, word2vec and topic modeling. In addition, we could also increase the training data size. We will extend this project to implement these techniques in future to increase the accuracy and performance of our models.
-
-
-### Installing and steps to run the software
-
-A step by step series of examples that tell you have to get a development env running
-
-1. The first step would be to clone this repo in a folder in your local machine. To do that you need to run following command in command prompt or in git bash
-```
-$ git clone https://github.com/nishitpatel01/Fake_News_Detection.git
-```
-
-2. This will copy all the data source file, program files and model into your machine.
-
-3.
-   - If you have chosen to install anaconda then follow below instructions
-     - After all the files are saved in a folder in your machine. If you chosen to install anaconda from the steps given in 	               ```Prerequisites``` sections then open the anaconda prompt, change the directory to the folder where this project is saved in     your machine and type below command and press enter.
-	```
-	cd C:/your cloned project folder path goes here/
-	```
-     - Once you are inside the directory call the ```prediction.py``` file, To do this, run below command in anaconda prompt.
-	```
-	python prediction.py
-	```
-     - After hitting the enter, program will ask for an input which will be a piece of information or a news headline that you 	    	   want to verify. Once you paste or type news headline, then press enter.
-
-     - Once you hit the enter, program will take user input (news headline) and will be used by model to classify in one of  categories of "True" and "False". Along with classifying the news headline, model will also provide a probability of truth associated with it.
-
-4.  If you have chosen to install python (and did not set up PATH variable for it) then follow below instructions:
-    - After you clone the project in a folder in your machine. Open command prompt and change the directory to project directory by running below command.
-    ```
-    cd C:/your cloned project folder path goes here/
-    ```
-    - Locate ```python.exe``` in your machine. you can search this in window explorer search bar. 
-    - Once you locate the ```python.exe``` path, you need to write whole path of it and then entire path of project folder with ```prediction.py``` at the end. For example if your ```python.exe``` is located at ```c:/Python36/python.exe``` and project folder is at ```c:/users/user_name/desktop/fake_news_detection/```, then your command to run program will be as below:
-    ```
-    c:/Python36/python.exe C:/users/user_name/desktop/fake_news_detection/prediction.py
-    ```
-    - After hitting the enter, program will ask for an input which will be a piece of information or a news headline that you 	    	   want to verify. Once you paste or type news headline, then press enter.
-
-    - Once you hit the enter, program will take user input (news headline) and will be used by model to classify in one of  categories of "True" and "False". Along with classifying the news headline, model will also provide a probability of truth associated with it. It might take few seconds for model to classify the given statement so wait for it.
-
-5.  If you have chosen to install python (and already setup PATH variable for ```python.exe```) then follow instructions:
-    - Open the command prompt and change the directory to project folder as mentioned in above by running below command
-    ```
-    cd C:/your cloned project folder path goes here/
-    ```
-    - run below command
-    ```
-    python.exe C:/your cloned project folder path goes here/
-    ```
-    - After hitting the enter, program will ask for an input which will be a piece of information or a news headline that you 	    	   want to verify. Once you paste or type news headline, then press enter.
-
-    - Once you hit the enter, program will take user input (news headline) and will be used by model to classify in one of  categories of "True" and "False". Along with classifying the news headline, model will also provide a probability of truth associated with it.
-
+    >python detect.py --image woman1.jpg
+    Gender: Female
+    Age: 38-43 years
+    
+<img src="Example/Detecting age and gender woman1.png">
+              
